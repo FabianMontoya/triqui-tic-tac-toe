@@ -38,3 +38,7 @@ button.btnGame:disabled{
 button.btnGame:hover:enabled{
     background-color: rgb(128, 126, 126);
 }
+
+#game{
+    width: 100%;
+}

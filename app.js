@@ -56,20 +56,47 @@ function createEvents(){
 function setValue(id){
     idWon = [];
     let position = id.split("");
-    matriz[position[0]][position[1]] = player;
-    verifyPlayerWon(position[0],position[1]);
-    if(!playerWon){
-        player = (player == "X") ? "O" : "X";
-        $("#player").html(player);
+    if(matriz[position[0]][position[1]] == null){
+        matriz[position[0]][position[1]] = player;
+    }
+    if(!verifyEndGame()){
+        verifyPlayerWon(position[0],position[1]);
+        if(!playerWon){
+            player = (player == "X") ? "O" : "X";
+            $("#player").html(player);
+        }else{
+            $(".btnGame").attr("disabled",true);
+            for(var i = 0; i < idWon.length; i++){
+                $("#"+idWon[i]).css("border", "3px solid red");
+            }
+            setTimeout(() => {
+                alert("Felicidades jugador " + player + ", has ganado esta partida.");
+            }, 100);
+        }
     }else{
         $(".btnGame").attr("disabled",true);
-        for(var i = 0; i < idWon.length; i++){
-            $("#"+idWon[i]).css("border", "3px solid red");
-        }
         setTimeout(() => {
-            alert("Felicidades jugador " + player + ", has ganado esta partida.");
+            alert("¡Empate!, partida finalizada.");
         }, 100);
     }
+}
+
+//Verificamos si hay posiciones que aún no se hayan seleccionado
+function verifyEndGame(){
+    var endGame = true;
+    for(var i in matriz){
+        if(endGame){
+            for(var j in matriz[i]){
+                if(matriz[i][j] == null){
+                    endGame = false;
+                    break;
+                }
+            }
+        }else{
+            break;
+        }
+    }
+    return endGame;
 }
 
 //Verificamos si con los valores actuales, el jugador ganó
