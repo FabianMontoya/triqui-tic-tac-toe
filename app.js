@@ -45,8 +45,9 @@ function createEvents(){
     for(var i = 0; i <= 2; i++){
         for(var j = 0; j <= 2; j++){
             $("#" + i.toString() + j.toString()).click(function() {
-                $(this).text(player);
-                setValue($(this)[0].id);
+                if($(this).text() == ""){                    
+                    setValue($(this)[0].id);
+                }
             });
         }       
     }
@@ -57,6 +58,7 @@ function setValue(id){
     idWon = [];
     let position = id.split("");
     if(matriz[position[0]][position[1]] == null){
+        $("#"+id).text(player);
         matriz[position[0]][position[1]] = player;
     }
     if(!verifyEndGame()){
