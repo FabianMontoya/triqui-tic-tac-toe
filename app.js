@@ -60,25 +60,25 @@ function setValue(id){
     if(matriz[position[0]][position[1]] == null){
         $("#"+id).text(player);
         matriz[position[0]][position[1]] = player;
-    }
-    if(!verifyEndGame()){
-        verifyPlayerWon(position[0],position[1]);
-        if(!playerWon){
+    }    
+    verifyPlayerWon(position[0],position[1]);
+    if(!playerWon){
+        if(!verifyEndGame()){
             player = (player == "X") ? "O" : "X";
             $("#player").html(player);
         }else{
             $(".btnGame").attr("disabled",true);
-            for(var i = 0; i < idWon.length; i++){
-                $("#"+idWon[i]).css("border", "3px solid red");
-            }
             setTimeout(() => {
-                alert("Felicidades jugador " + player + ", has ganado esta partida.");
+                alert("¡Empate!, partida finalizada.");
             }, 100);
         }
     }else{
         $(".btnGame").attr("disabled",true);
+        for(var i = 0; i < idWon.length; i++){
+            $("#"+idWon[i]).css("border", "3px solid red");
+        }
         setTimeout(() => {
-            alert("¡Empate!, partida finalizada.");
+            alert("Felicidades jugador " + player + ", has ganado esta partida.");
         }, 100);
     }
 }
